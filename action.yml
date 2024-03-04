@@ -1,4 +1,4 @@
-name: 'Dependency Check'
+name: 'Dependency Check for SS19'
 description: 'Github action to execute dependency check as part of a github workflow'
 branding:
   icon: 'shield'
