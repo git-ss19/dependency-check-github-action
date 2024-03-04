@@ -1,34 +1,38 @@
 name: 'Dependency Check'
 description: 'Github action to execute dependency check as part of a github workflow'
-Author: 'javixeneize'
 branding:
-  icon: 'shield'  
+  icon: 'shield'
   color: 'red'
 inputs:
-    project:
-        required: true
-    path:
-        required: true  
-    format:
-        required: true
-    out:
-        required: true
-        default: 'reports'
-
-    args:
-        required: false
+  project:
+    description: 'The name of the project to scan'
+    required: true
+  path:
+    description: 'The path to scan'
+    required: true
+    default: '.'
+  format:
+    description: 'The output format to write to HTML, JSON (default), etc.'
+    default: 'JSON'
+    required: true
+  out:
+    description: 'The folder to write reports to. default is `reports`'
+    required: true
+    default: 'reports'
+  args:
+    description: 'see (Command Line Arguments)[https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html]'
+    required: false
 runs:
-    using: 'docker'
-    image: 'Dockerfile'
-    args:
-
-        - '--project'
-        - '${{ inputs.project }}'
-        - '--scan'
-        - '/github/workspace/${{ inputs.path }}'
-        - '--format' 
-        - '${{ inputs.format }}'
-        - '--out'
-        - '/github/workspace/${{ inputs.out }}'
-        - '--noupdate'
-        - ${{ inputs.args }}
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '--project'
+    - '${{ inputs.project }}'
+    - '--scan'
+    - '${{ inputs.path }}'
+    - '--format'
+    - '${{ inputs.format }}'
+    - '--out'
+    - '${{ inputs.out }}'
+    - '--noupdate'
+    - ${{ inputs.args }}

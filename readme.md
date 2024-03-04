@@ -1,3 +1,4 @@
+# THIS FORKED remove `/github/workspace` from action yaml; It didnot worked as expected for our workflows
 
 # Welcome to Dependency check action
 
@@ -21,7 +22,8 @@ Additionally, you can specify:
 - `args`: any remaining flags and parameters to the binary, check the [arguments page](https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html) for valid options
 
 Example:
-```
+
+```yaml
 
 on: [push]
 
@@ -34,8 +36,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build project with Maven
         run: mvn clean install
-      - name: Depcheck
-        uses: dependency-check/Dependency-Check_Action@main
+      - name: Dependency check
+        uses: git-ss19/dependency-check-github-action
         id: Depcheck
         with:
           project: 'test'
@@ -52,24 +54,25 @@ jobs:
            path: ${{github.workspace}}/reports
 ```
 
-### Error: JAVA_HOME is not defined correctly 
+## Error: JAVA_HOME is not defined correctly
+
 When used in conjunction with the GitHub Action [setup-java](https://github.com/actions/setup-java) you will see the error `Error: JAVA_HOME is not defined correctly`
 
 This is due to the environment variable `JAVA_HOME` being changed by the setup-java GitHub Action. To fix this problem you will need to reset `JAVA_HOME` to match how it's being set in the image [Dependency-Check Docker Image](https://github.com/jeremylong/DependencyCheck/blob/main/Dockerfile#L16) within the Depcheck step. 
 
 Example:
-```
+
 ```yaml
 ...
 - name: Depcheck
-uses: dependency-check/Dependency-Check_Action@main
-env:
-  # actions/setup-java@v1 changes JAVA_HOME so it needs to be reset to match the depcheck image
-  JAVA_HOME: /opt/jdk
+  uses: git-ss19/dependency-check-github-action
+  env:
+    # actions/setup-java@v1 changes JAVA_HOME so it needs to be reset to match the depcheck image
+    JAVA_HOME: /opt/jdk
 ...
 ```
 
-# How Do I Use It?
+## How Do I Use It?
 We recommend adding the above example into your .github/workflows directory, using a name of your choice, in this example main.yml.
 
 It should look like this
