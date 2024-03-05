@@ -18,21 +18,21 @@ inputs:
   out:
     description: 'The folder to write reports to. default is `reports`'
     required: true
-    default: 'reports'
-  args:
-    description: 'see (Command Line Arguments)[https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html]'
+    default: './reports'
+  options:
+    description: 'arguments options. See (Command Line Arguments)[https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html]'
     required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - '--project'
-    - '${{ inputs.project }}'
-    - '--scan'
-    - '${{ inputs.path }}'
+    - ${{ inputs.project }}
     - '--format'
-    - '${{ inputs.format }}'
-    - '--out'
-    - '${{ inputs.out }}'
+    - ${{ inputs.format }}
+    - ${{ inputs.options }}
     - '--noupdate'
-    - ${{ inputs.args }}
+    - '--out'
+    - ${{ inputs.out }}
+    - '--scan'
+    - ${{ inputs.path }}
