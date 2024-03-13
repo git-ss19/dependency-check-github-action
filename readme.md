@@ -1,4 +1,4 @@
-# THIS FORKED remove `/github/workspace` from action yaml; It didnot worked as expected for our workflows
+📌 This forked modification removes the hard-coded path from the yaml file and addresses the issue of file ownership by root, which prevented subsequent workflows from cleaning the workspace folder.
 
 # Welcome to Dependency check action
 
