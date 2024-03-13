@@ -9,8 +9,6 @@ LABEL org.opencontainers.image.url="" \
       com.github.actions.icon="shield" \
       com.github.actions.color="red"
 
-USER root
-
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/bin/sh","/entrypoint.sh"]
 
